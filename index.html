@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sai Srinivas | AI & Data Engineer</title>
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            /* Hybrid Palette */
+            --bg-gradient: linear-gradient(135deg, #FF9A9E, #FECFEF, #E0C3FC);
+            --glass-bg: rgba(255, 255, 255, 0.35);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+            --neo-border: 3px solid #000;
+            --neo-shadow: 6px 6px 0px 0px #000;
+            --neo-shadow-hover: 8px 8px 0px 0px #000;
+            --neo-shadow-active: 2px 2px 0px 0px #000;
+            --accent-color: #FF0055;
+            --text-main: #000;
+            --font-main: 'Courier New', Courier, monospace;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-y: scroll;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- 2. LAYOUT --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 100px;
+        }
+
+        /* --- 3. NAVIGATION (TABS) --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: var(--neo-border);
+        }
+
+        .nav-group {
+            display: flex;
+            gap: 15px;
+            background: #fff;
+            padding: 5px;
+            border: var(--neo-border);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            font-family: var(--font-main);
+            font-weight: 900;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            transition: 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-btn.active {
+            background: #000;
+            color: #fff;
+        }
+
+        /* --- 4. CONTENT SECTIONS --- */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 5. COMPONENT STYLES --- */
+        .hybrid-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: var(--neo-border);
+            box-shadow: var(--neo-shadow);
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin: 0;
+            line-height: 0.9;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid #000;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .action-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: #fff;
+            color: #000;
+            border: var(--neo-border);
+            box-shadow: var(--neo-shadow);
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .action-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: var(--neo-shadow-hover);
+        }
+
+        .action-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: var(--neo-shadow-active);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border: 2px solid #000;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .nav-group {
+                gap: 5px;
+            }
+            .tab-btn {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+            .container {
+                padding-top: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-group">
+            <button class="tab-btn active" onclick="openTab('home')">Home</button>
+            <button class="tab-btn" onclick="openTab('about')">About</button>
+            <button class="tab-btn" onclick="openTab('projects')">Projects</button>
+            <button class="tab-btn" onclick="openTab('contact')">Contact</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="home" class="tab-content active">
+            <div class="hybrid-card" style="text-align: center; padding: 60px 20px;">
+                <div class="badge">OPEN FOR ROLES</div>
+                <h1>Sai Srinivas<br>Guttikonda</h1>
+                <div style="margin: 30px 0;">
+                    <p style="background: white; border: 2px solid black; display: inline-block; padding: 10px;">
+                        Master's in CS @ GWU • AI & Data Engineering
+                    </p>
+                </div>
+                <p> I build data pipelines that scale and AI models that actually work. <br>Welcome to my digital playground. </p>
+                <button class="action-btn" onclick="openTab('projects')">See My Work</button>
+            </div>
+            <div class="grid">
+                <div class="hybrid-card">
+                    <h3>🚀 Latest Focus</h3>
+                    <p>Currently researching <strong>Agentic AI</strong> and optimization for Large Language Models.</p>
+                </div>
+                <div class="hybrid-card">
+                    <h3>📍 Location</h3>
+                    <p>Based in <strong>Virginia, USA</strong>.<br>Open to relocation for the right opportunity.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="about" class="tab-content">
+            <div class="hybrid-card">
+                <h2>About Me</h2>
+                <p> I am a Master's student in Computer Science at George Washington University (exp. May 2026). My passion lies at the intersection of Big Data and Artificial Intelligence. </p>
+                <p> I don't just write code; I design systems. Whether it's architecting a cloud-native ETL pipeline or fine-tuning a transformer model, I focus on efficiency, scalability, and clean logic. </p>
+            </div>
+            <div class="hybrid-card">
+                <h2>The Tech Stack</h2>
+                <div class="grid">
+                    <div>
+                        <h3>Languages</h3>
+                        <p>Python, SQL, Java, TypeScript</p>
+                    </div>
+                    <div>
+                        <h3>Data Engineering</h3>
+                        <p>AWS (Glue, Redshift), Spark, Airflow, Snowflake, dbt</p>
+                    </div>
+                    <div>
+                        <h3>AI / ML</h3>
+                        <p>PyTorch, TensorFlow, LLMs, RAG, Scikit-learn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="projects" class="tab-content">
+            <div class="hybrid-card" style="background: #000; color: #fff;">
+                <h2 style="border-color: #fff;">Selected Works</h2>
+                <p style="color: #ddd;">A collection of my recent engineering projects.</p>
+            </div>
+            <div class="grid">
+                <div class="hybrid-card">
+                    <div class="badge">AI / NLP</div>
+                    <h3>TextGuard: Risk Triage</h3>
+                    <p>BERT-based pipeline for triaging risk signals in IDB project PDFs. Macro-F1: 0.956.</p>
+                    <a href="https://github.com/Poteto7" target="_blank" class="action-btn" style="font-size: 0.9rem;">View Project</a>
+                </div>
+                <div class="hybrid-card">
+                    <div class="badge">DATA ENGINEERING</div>
+                    <h3>Predictive Maintenance</h3>
+                    <p>XGBoost pipeline trained on 100k+ sensor records to predict equipment failures. +15% Uptime.</p>
+                    <a href="https://github.com/Poteto7" target="_blank" class="action-btn" style="font-size: 0.9rem;">View Project</a>
+                </div>
+                <div class="hybrid-card">
+                    <div class="badge">AI / ML</div>
+                    <h3>AI Crime Prediction</h3>
+                    <p>Spatio-temporal weekly hotspot forecasting for DC crime data using LSTM and XGBoost.</p>
+                    <a href="https://github.com/Poteto7" target="_blank" class="action-btn" style="font-size: 0.9rem;">View Project</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact" class="tab-content">
+            <div class="hybrid-card" style="text-align: center;">
+                <h2>Let's Connect</h2>
+                <p> I am currently looking for Internship and Full-time roles in Data Engineering and AI. </p>
+                <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 20px; align-items: center;">
+                    <a href="mailto:sais60990@gmail.com" class="action-btn" style="width: 100%; max-width: 300px;"> 📧 Email Me </a>
+                    <a href="https://linkedin.com/in/sai-srinivas-guttikond" target="_blank" class="action-btn" style="width: 100%; max-width: 300px;"> 💼 LinkedIn </a>
+                    <a href="https://github.com/Poteto7" target="_blank" class="action-btn" style="width: 100%; max-width: 300px;"> 💻 GitHub </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer for Download -->
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="resume.pdf" download class="action-btn" style="background: #000; color: #fff;">Download Full Resume PDF</a>
+        </div>
+    </div>
+
+    <script>
+        function openTab(tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            const activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
+            if (activeBtn) activeBtn.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
