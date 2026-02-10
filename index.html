@@ -317,5 +317,42 @@
     </script>
     <!-- Vercel Web Analytics -->
     <script defer src="/_vercel/insights/script.js"></script>
+
+    <!-- Cursor Pet -->
+    <div id="cursor-pet">🐶</div>
+    <style>
+        #cursor-pet {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 2.5rem;
+            left: 0;
+            top: 0;
+        }
+    </style>
+    <script>
+        const pet = document.getElementById('cursor-pet');
+        let mouseX = 0;
+        let mouseY = 0;
+        let petX = 0;
+        let petY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animatePet() {
+            const speed = 0.1;
+            let distX = mouseX - petX;
+            let distY = mouseY - petY;
+            petX += distX * speed;
+            petY += distY * speed;
+            let faceDirection = distX > 0 ? -1 : 1;
+            pet.style.transform = `translate(${petX + 20}px, ${petY + 20}px) scaleX(${faceDirection})`;
+            requestAnimationFrame(animatePet);
+        }
+        animatePet();
+    </script>
 </body>
 </html>
