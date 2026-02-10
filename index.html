@@ -24,15 +24,23 @@
 
         /* --- 1. CORE VARIABLES --- */
         :root {
-            --bg-gradient: linear-gradient(-45deg, #720026, #EAF6EF, #720026);
-            --accent-color: #720026;
-            --glass-bg: rgba(255, 255, 255, 0.65);
+            /* MIDNIGHT ENGINEERING PALETTE 
+               Unique Blue (#3E6D84) -> Authentic Navy (#2E224F) -> Loop */
+            --bg-gradient: linear-gradient(-45deg, #3E6D84, #2E224F, #3E6D84);
+            
+            /* READABILITY FIX: High opacity for dark background */
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            
+            /* STANDARD NEO-BRUTALIST BORDERS & SHADOWS */
             --glass-border: 1px solid rgba(255, 255, 255, 0.5);
-            --neo-border: 3px solid #720026;
-            --neo-shadow: 6px 6px 0px 0px #720026;
+            --neo-border: 3px solid #000;
+            --neo-shadow: 6px 6px 0px 0px #000;
             --neo-shadow-hover: 8px 8px 0px 0px #000;
             --neo-shadow-active: 2px 2px 0px 0px #000;
-            --text-main: #720026;
+            
+            /* Accent & Text */
+            --accent-color: #720026;
+            --text-main: #000;
             
             /* FONT PAIRING STRATEGY */
             --font-heading: 'SuperMorning', 'MagicSaturday', cursive;
@@ -262,18 +270,21 @@
                 <p style="color: #ddd;">A collection of my recent engineering projects.</p>
             </div>
             <div class="grid">
+                <!-- TextGuard -->
                 <div class="hybrid-card">
                     <div class="badge">AI / NLP</div>
                     <h3>TextGuard: Risk Triage</h3>
                     <p>BERT-based pipeline for triaging risk signals in IDB project PDFs. Macro-F1: 0.956.</p>
                     <a href="https://github.com/Poteto7" target="_blank" class="action-btn" style="font-size: 0.9rem;">View Project</a>
                 </div>
+                <!-- Predictive Maintenance -->
                 <div class="hybrid-card">
                     <div class="badge">DATA ENGINEERING</div>
                     <h3>Predictive Maintenance</h3>
                     <p>XGBoost pipeline trained on 100k+ sensor records to predict equipment failures. +15% Uptime.</p>
                     <a href="https://github.com/Poteto7" target="_blank" class="action-btn" style="font-size: 0.9rem;">View Project</a>
                 </div>
+                <!-- Crime Prediction -->
                 <div class="hybrid-card">
                     <div class="badge">AI / ML</div>
                     <h3>AI Crime Prediction</h3>
@@ -294,7 +305,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Footer for Download (HIDDEN)
         <div style="text-align: center; margin-top: 50px;">
             <a href="resume.pdf" download class="action-btn" style="background: #000; color: #fff;">Download Full Resume PDF</a>
