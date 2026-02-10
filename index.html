@@ -6,19 +6,27 @@
     <title>Sai Srinivas | AI & Data Engineer</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😁</text></svg>">
     <style>
+        /* --- 0. CUSTOM FONT --- */
+        @font-face {
+            font-family: 'SuperMorning';
+            src: url('fonts/super-morning.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         /* --- 1. CORE VARIABLES --- */
         :root {
-            /* Hybrid Palette */
-            --bg-gradient: linear-gradient(135deg, #FF9A9E, #FECFEF, #E0C3FC);
-            --glass-bg: rgba(255, 255, 255, 0.35);
+            /* Black Rose (#720026) -> Panache (#EAF6EF) -> Black Rose */
+            --bg-gradient: linear-gradient(-45deg, #720026, #EAF6EF, #720026);
+            --accent-color: #720026;
+            --glass-bg: rgba(255, 255, 255, 0.65);
             --glass-border: 1px solid rgba(255, 255, 255, 0.5);
-            --neo-border: 3px solid #000;
-            --neo-shadow: 6px 6px 0px 0px #000;
+            --neo-border: 3px solid #720026;
+            --neo-shadow: 6px 6px 0px 0px #720026;
             --neo-shadow-hover: 8px 8px 0px 0px #000;
             --neo-shadow-active: 2px 2px 0px 0px #000;
-            --accent-color: #FF0055;
-            --text-main: #000;
-            --font-main: 'Courier New', Courier, monospace;
+            --text-main: #720026;
+            --font-main: 'SuperMorning', 'Courier New', Courier, monospace;
         }
 
         * { box-sizing: border-box; }
@@ -29,7 +37,7 @@
             font-family: var(--font-main);
             background: var(--bg-gradient);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            animation: gradientBG 20s ease infinite;
             color: var(--text-main);
             min-height: 100vh;
             overflow-y: scroll;
@@ -340,10 +348,7 @@
             font-size: 2.5rem;
             transition: transform 0.1s ease;
         }
-        /* THE RUNNING ANIMATION */
-        .running {
-            animation: run-gait 0.3s infinite linear;
-        }
+        .running { animation: run-gait 0.3s infinite linear; }
         @keyframes run-gait {
             0% { transform: translateY(0) rotate(0deg); }
             25% { transform: translateY(-8px) rotate(-10deg); }
@@ -351,10 +356,7 @@
             75% { transform: translateY(-8px) rotate(10deg); }
             100% { transform: translateY(0) rotate(0deg); }
         }
-        /* THE IDLE (SITTING) ANIMATION */
-        .idle {
-            animation: breathe 2s infinite ease-in-out;
-        }
+        .idle { animation: breathe 2s infinite ease-in-out; }
         @keyframes breathe {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -363,17 +365,11 @@
     <script>
         const container = document.getElementById('pet-container');
         const emoji = document.getElementById('pet-emoji');
-        let mouseX = 0;
-        let mouseY = 0;
-        let petX = 0;
-        let petY = 0;
-        let isMoving = false;
-        let lastMouseX = 0;
-        let idleTimer;
+        let mouseX = 0; let mouseY = 0; let petX = 0; let petY = 0;
+        let isMoving = false; let idleTimer;
 
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            mouseX = e.clientX; mouseY = e.clientY;
             isMoving = true;
             emoji.classList.remove('idle');
             emoji.classList.add('running');
