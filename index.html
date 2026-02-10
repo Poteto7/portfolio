@@ -319,40 +319,84 @@
     <script defer src="/_vercel/insights/script.js"></script>
 
     <!-- Cursor Pet -->
-    <div id="cursor-pet">🐶</div>
+    <div id="pet-container">
+        <div id="pet-emoji">🐕</div>
+    </div>
     <style>
-        #cursor-pet {
+        #pet-container {
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            font-size: 2.5rem;
             left: 0;
             top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+        }
+        #pet-emoji {
+            font-size: 2.5rem;
+            transition: transform 0.1s ease;
+        }
+        /* THE RUNNING ANIMATION */
+        .running {
+            animation: run-gait 0.3s infinite linear;
+        }
+        @keyframes run-gait {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(-10deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-8px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        /* THE IDLE (SITTING) ANIMATION */
+        .idle {
+            animation: breathe 2s infinite ease-in-out;
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
     </style>
     <script>
-        const pet = document.getElementById('cursor-pet');
+        const container = document.getElementById('pet-container');
+        const emoji = document.getElementById('pet-emoji');
         let mouseX = 0;
         let mouseY = 0;
         let petX = 0;
         let petY = 0;
+        let isMoving = false;
+        let lastMouseX = 0;
+        let idleTimer;
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+            isMoving = true;
+            emoji.classList.remove('idle');
+            emoji.classList.add('running');
+            clearTimeout(idleTimer);
+            idleTimer = setTimeout(() => {
+                isMoving = false;
+                emoji.classList.remove('running');
+                emoji.classList.add('idle');
+            }, 150);
         });
 
-        function animatePet() {
-            const speed = 0.1;
+        function animate() {
+            const lag = 0.12;
             let distX = mouseX - petX;
             let distY = mouseY - petY;
-            petX += distX * speed;
-            petY += distY * speed;
-            let faceDirection = distX > 0 ? -1 : 1;
-            pet.style.transform = `translate(${petX + 20}px, ${petY + 20}px) scaleX(${faceDirection})`;
-            requestAnimationFrame(animatePet);
+            petX += distX * lag;
+            petY += distY * lag;
+            let direction = distX > 0 ? -1 : 1;
+            container.style.transform = `translate(${petX + 25}px, ${petY + 25}px)`;
+            emoji.style.transform = `scaleX(${direction})`;
+            requestAnimationFrame(animate);
         }
-        animatePet();
+        emoji.classList.add('idle');
+        animate();
     </script>
 </body>
 </html>
